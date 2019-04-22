@@ -17,7 +17,5 @@ This file structure and annotations follow the [Darknet-YOLO3 CNN](https://pjred
 
 Not working in Safari, StreamSaver missing Safari support: https://github.com/jimmywarting/StreamSaver.js
 
-<br>
-
 ---
 Forked from - https://github.com/dbolkensteyn/vatic.js
