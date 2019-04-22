@@ -13,10 +13,9 @@ The annotations follows the below structure:
 
 This file structure and annotations follow the [Darknet-YOLO3 CNN](https://pjreddie.com/darknet/) labels structure.
 
-Not working in Safari, StreamSaver missing Safari support: https://github.com/jimmywarting/StreamSaver.js
-
 <br><br>
 
-
+Not working in Safari, StreamSaver missing Safari support: https://github.com/jimmywarting/StreamSaver.js
+<br>
 ---
 Forked from - https://github.com/dbolkensteyn/vatic.js
