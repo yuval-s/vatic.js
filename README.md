@@ -1,4 +1,5 @@
 <h2>Video Annotation Tool</h2>
+
 **Create bounding boxes for a selected video file.**
 
 <h3>https://yuval-s.github.io/vatic.js</h3>
