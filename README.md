@@ -11,7 +11,7 @@ The annotations follows the below structure:
 | ----- | -------- | -------- | ---------- | ----------- |
 * *Note that the above dimensions are normalized (automatically) by the frame dimensions.*
 
-This file structure and annotations follow the [Darknet-YOLO3 CNN](https://pjreddie.com/darknet/) labels structure.
+This file structure and annotations follow the [Darknet-YOLOv3 CNN](https://pjreddie.com/darknet/) labels structure.
 
 <br><br>
 
