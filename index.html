@@ -637,12 +637,7 @@
 
       function addAnnotatedObjectControls(annotatedObject) {
         // let name = $('<input type="text" value="Name?" />');
-	let name = $('<select name="Name">
-		        <option value="Boat">Boat</option>
-		        <option value="Person">Person</option>
-		        <option value="Jet Ski">Jet Ski</option>
-		        <option value="Buoy">Buoy</option>
-		     </select>');
+	let name = $('<select name="Name"><option value="Boat">Boat</option><option value="Person">Person</option><option value="Jet Ski">Jet Ski</option><option value="Buoy">Buoy</option></select>');
         if (annotatedObject.name) {
           name.val(annotatedObject.name);
         }
