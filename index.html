@@ -636,21 +636,23 @@
       }
 
       function addAnnotatedObjectControls(annotatedObject) {
-        // let name = $('<input type="text" value="Name?" />');
-	let name = $('<select name="Name"><option value="Boat">Boat</option><option value="Person">Person</option><option value="Jet Ski">Jet Ski</option><option value="Buoy">Buoy</option></select>');
-        if (annotatedObject.name) {
-          name.val(annotatedObject.name);
-        }
-        name.on('change keyup paste mouseup', function() {
-          annotatedObject.name = this.value;
-        });
-
-        let id = $('<input type="text" value="ID?" />');
+	      
+	let id = $('<input type="text" value="ID?" />');
         if (annotatedObject.id) {
           id.val(annotatedObject.id);
         }
         id.on('change keyup paste mouseup', function() {
           annotatedObject.id = this.value;
+        });
+	
+        // let name = $('<input type="text" value="Name?" />');
+	let name = $('<select name="Name"><option value="Boat">Boat</option><option value="Person">Person</option><option value="Jet Ski">Jet Ski</option><option value="Buoy">Buoy</option></select>');
+        if (annotatedObject.name) {
+          name.val(annotatedObject.name);
+          id.value = name.value;
+        }
+        name.on('change keyup paste mouseup', function() {
+          annotatedObject.name = this.value;
         });
 
         let visibleLabel = $('<label>');
