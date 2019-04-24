@@ -651,12 +651,12 @@
         if (annotatedObject.name) {
           name.val(annotatedObject.name);
           id.value = name.value;
-	  alert(name.value);
+	  
         }
         name.on('change keyup paste mouseup', function() {
           annotatedObject.name = this.value;
           id.value = name.value;
-          
+          alert(name.value);
         });
 
         let visibleLabel = $('<label>');
