@@ -655,8 +655,8 @@
         }
         name.on('change keyup paste mouseup', function() {
           annotatedObject.name = this.value;
-          id.value = name.value;
-          alert(name.val);
+          annotatedObject.id = annotatedObject.name;
+          alert(annotatedObject.name);
         });
 
         let visibleLabel = $('<label>');
