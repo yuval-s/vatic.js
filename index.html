@@ -9,6 +9,7 @@
       body {
         margin: 0;
         padding: 0;
+	font-family: 'Arial';
       }
 	    
       .output { font-family: monospace; font-weight: bold; }
@@ -650,11 +651,12 @@
         if (annotatedObject.name) {
           name.val(annotatedObject.name);
           id.value = name.value;
+	  alert(name.value);
         }
         name.on('change keyup paste mouseup', function() {
           annotatedObject.name = this.value;
           id.value = name.value;
-          alert("345");
+          
         });
 
         let visibleLabel = $('<label>');
