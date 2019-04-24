@@ -1,0 +1,4 @@
+Boat
+Person
+Jet Ski
+Buoy
