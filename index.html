@@ -9,12 +9,6 @@
       body {
         margin: 0;
         padding: 0;
-<<<<<<< HEAD
-        background-color: #f2f2f2;
-        font-family: 'Arial';
-=======
-	font-family: 'Arial';
->>>>>>> 2f421a5a8ff1b0cf52180c5d738497d9acae6a41
       }
 	    
       .output { font-family: monospace; font-weight: bold; }
@@ -31,30 +25,26 @@
       }
 
       #title {
-        background-color: #2d2d2d;
-        height: 80px;
-        line-height: 80px;
-        padding-left: 20px;
+        background-color: #333333;
+	height: 60px;
+	line-height: 60px;
+	padding: 10px;
         color: #ffffff;
         font-size: 2em; 
-        font-family: 'Paytone One';
+	font-family: 'Paytone One';
       }
 	    
       ul {
         list-style-type: none;
-        margin: 0;
-        padding: 0;
+        margin: 0px;
+        padding: 0px;
       }
 	    
       ul li {
-        padding-left: 20px;
-        padding-top: 10px;
+        background-color: #dddddd;
+        margin: 0px;
+        padding-left: 10px;
       }
-	    
-	    p {
-	    	margin: 0;
-	    	padding-top: 5px;
-	    }
 	    
       .bbox {
         border: 1px solid #FF0000;
@@ -155,11 +145,13 @@
 
     <ul>
       <li>
+        <p>This tool can be used to easily annotate a video, without having to install anything.</p>
         <p>Optical flow is used to track your annotations, so that have to do as little work as possible ;-)</p>
+        <p>This tool works best in Chrome, and has also been successfully tested in Firefox.</p>
       </li>
       <li>
-        <p>Start a new video annotation <input type="file" id="videoFile" accept=".mp4,.x-m4v,video/*" /></p>
-        <p>Resume a previous annotation <input type="file" id="zipFile" accept=".zip" /></p>
+        <p>To start a new video annotation, select a video file: <input type="file" id="videoFile" accept=".mp4,.x-m4v,video/*" /></p>
+        <p>To resume a previous annotation, select a frames zip archive: <input type="file" id="zipFile" accept=".zip" /></p>
         <p>Note: Keep the focus on the browser during the entire extraction process, or frames might be skipped.</p>
         <p class="output" id="videoDimensions"></p>
         <p class="output" id="extractionProgress"></p>
@@ -195,7 +187,7 @@
       </li>
     </ul>
 
-  	<a href="https://github.com/yuval-s/vatic.js" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#00aadd; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  <a href="https://github.com/yuval-s/vatic.js" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#00aadd; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
     <script type="text/javascript" src="dist/compatibility.js"></script>
     <script type="text/javascript" src="dist/jszip.js"></script>
@@ -226,16 +218,6 @@
         framesZipFilename: 'extracted-frames.zip'
       };
 
-			var classes;
-      var xmlhttp = new XMLHttpRequest();
-			xmlhttp.onreadystatechange = function() {
-		  if (this.readyState == 4 && this.status == 200) {
-		 	 	classes = JSON.parse(this.responseText);
-		 	 }
-			};
-			xmlhttp.open("GET", "Classes.txt", true);
-			xmlhttp.send();
-				
       let VideoName = document.getElementById('videoFile');
 	  
       let doodle = document.querySelector('#doodle');
@@ -654,63 +636,24 @@
       }
 
       function addAnnotatedObjectControls(annotatedObject) {
-<<<<<<< HEAD
-				
-				let idLabel = $('<label>');
-        let id = $('<input type="text" value="0" style="margin-left:7px;"/>');
-=======
-	      
-	let id = $('<input type="text" value="ID?" />');
->>>>>>> 2f421a5a8ff1b0cf52180c5d738497d9acae6a41
+        let name = $('<input type="text" value="Name?" />');
+        if (annotatedObject.name) {
+          name.val(annotatedObject.name);
+        }
+        name.on('change keyup paste mouseup', function() {
+          annotatedObject.name = this.value;
+        });
+
+        let id = $('<input type="text" value="ID?" />');
         if (annotatedObject.id) {
           id.val(annotatedObject.id);
         }
         id.on('change keyup paste mouseup', function() {
           annotatedObject.id = this.value;
         });
-<<<<<<< HEAD
-        idLabel.append('ID');
-        idLabel.append(id);
 
-				let nameLabel = $('<label>');
-        let name = $('<select style="margin-left:7px;"></select>')
-        for(let i = 0; i<5; i++){
-        	let option = $('<option></option>');
-        	option.val(i);
-        	option.append(classes[i]);
-        	name.append(option);
-        }
-        if (annotatedObject.name) {
-          name.val(annotatedObject.name);
-        }
-        name.change(function() {
-          id.val(this.value);
-          annotatedObject.id = this.value;
-        });
-        name.on('change keyup paste mouseup', function() {
-          annotatedObject.name = this.value;
-        });
-				nameLabel.append('Class');
-				nameLabel.append(name);
-				
-=======
-	
-        // let name = $('<input type="text" value="Name?" />');
-	let name = $('<select name="Name"><option value="Boat">Boat</option><option value="Person">Person</option><option value="Jet Ski">Jet Ski</option><option value="Buoy">Buoy</option></select>');
-        if (annotatedObject.name) {
-          name.val(annotatedObject.name);
-          id.value = name.value;
-	  
-        }
-        name.on('change keyup paste mouseup', function() {
-          annotatedObject.name = this.value;
-          annotatedObject.id = annotatedObject.name;
-          alert(annotatedObject.name);
-        });
-
->>>>>>> 2f421a5a8ff1b0cf52180c5d738497d9acae6a41
         let visibleLabel = $('<label>');
-        let visible = $('<input type="checkbox" checked="checked" style="margin-right:7px;"/>');
+        let visible = $('<input type="checkbox" checked="checked" />');
         annotatedObject.visible = visible;
         visible.change(function() {
           let bbox;
@@ -729,7 +672,7 @@
         visibleLabel.append('Is visible?');
 
         let hideLabel = $('<label>');
-        let hide = $('<input type="checkbox" style="margin-right:7px;"/>');
+        let hide = $('<input type="checkbox" />');
         hide.change(function() {
           annotatedObject.hideOthers = this.checked;
         });
@@ -752,9 +695,9 @@
           'display': 'inline-block',
           'margin': '5px',
           'padding': '10px'});
-        div.append(nameLabel);
+        div.append(name);
         div.append($('<br />'));
-        div.append(idLabel);
+        div.append(id);
         div.append($('<br />'));
         div.append(visibleLabel);
         div.append($('<br />'));

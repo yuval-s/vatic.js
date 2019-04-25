@@ -1,8 +1,0 @@
-<<<<<<< HEAD
-["a", "b", "c", "d"]
-=======
-Boat
-Person
-Jet Ski
-Buoy
->>>>>>> 2f421a5a8ff1b0cf52180c5d738497d9acae6a41
