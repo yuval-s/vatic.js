@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charseth=utf-8">
     <link href='https://fonts.googleapis.com/css?family=Paytone One' rel='stylesheet'>
-    <title>vatic.js A pure Javascript video annotation tool</title>
+    <title>vatic.js - Video Annotation Tool</title>
     <style>
       body {
         margin: 0;
@@ -23,16 +23,15 @@
       }
 
       #canvas {
+      	margin-right: 20px;
         z-index: 1;
       }
 
-      #title {
+      #titleBlock {
         background-color: #2d2d2d;
-        height: 80px;
-        line-height: 80px;
+        height: 85px;
         padding-left: 20px;
         color: #ffffff;
-        font-size: 2em; 
         font-family: 'Paytone One';
       }
 	    
@@ -48,7 +47,7 @@
       }
 	    
 	    p {
-	    	margin: 0;
+	    	margin: 0px;
 	    	padding-top: 5px;
 	    }
 	    
@@ -99,42 +98,70 @@
         transform: translate(50%, -50%);
         cursor: e-resize;
       }
-
+			
+			#sliderBlock {
+				background-color: #000000;
+				height: 20px;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        margin-right: 3em;
+			}
+			
+			#play {
+				background-color: rgba(255, 255, 255, 0);
+				border: none;
+				color: #aaaaaa;
+				font-size: 20px;
+				margin-top: -4px;
+				margin-left: 10px;
+  			cursor: pointer;
+			}
+			
       .ui-slider {
         position: relative;
+				background-color: #555555;
         text-align: left;
-        height: .8em;
+        height: 4px;
+        margin-top: 6px;
+/*         margin-right: 10px; */
+        margin-left: 50px;
       }
 
       .ui-slider-handle {
         position: absolute;
+        background-color: #ff0000;
         z-index: 2;
-        width: 1.2em;
-        height: 1.2em;
+        width: 8px;
+        height: 8px;
         cursor: default;
         -ms-touch-action: none;
         touch-action: none;
-        top: -.3em;
-        margin-left: -.6em;
+        top: -3px;
+        margin-left: -5px;
+        border-radius: 5px;
       }
 
       .ui-widget.ui-widget-content {
-        border: 1px solid #d3d3d3;
+/*         border: 1px solid #d3d3d3; */
       }
 
       .ui-state-default {
-        border: 1px solid #d3d3d3;
-        background-color: #e6e6e6;
+        border: 1px solid #aa0000;
+/*         background-color: #e6e6e6; */
       }
 
       .ui-state-hover, .ui-state-focus {
-        border: 1px solid #999999;
-        background-color: #dadada;
+        border: 1px solid #cc0000;
+        width: 10px;
+        height: 10px;
+        top: -4px;
+        border-radius: 6px;
+/*         background-color: #dadada; */
       }
 
       .ui-state-active {
-        border: 1px solid #aaaaaa;
-        background-color: #ffffff;
+/*         border: 1px solid #aaaaaa; */
+/*         background-color: #ffffff; */
       }
 
       .ui-state-disabled {
@@ -142,56 +169,46 @@
       }
 
       .ui-corner-all {
-        border-radius: 4px;
+/*         border-radius: 5px; */
       }
     </style>
   </head>
   <body>
-    <div id="title">vatic.js - Video Annotation Tool</div>
-
+    <div id="titleBlock">
+    	<p id="title" style="font-size: 2em; ">vatic.js - Video Annotation Tool</p>
+    	<p>Optical flow is used to track your annotations, so that you have to do as little work as possible ;-)</p>
+		</div>
     <ul>
       <li>
-        <p>Optical flow is used to track your annotations, so that have to do as little work as possible ;-)</p>
-      </li>
-      <li>
-        <p>Start a new video annotation <input type="file" id="videoFile" accept=".mp4,.x-m4v,video/*" /></p>
+        <p>Start a new video annotation <input type="file" id="videoFile" accept=".mp4,.x-m4v,video/*"/></p>
         <p>Resume a previous annotation <input type="file" id="zipFile" accept=".zip" /></p>
-        <p>Note: Keep the focus on the browser during the entire extraction process, or frames might be skipped.</p>
+        <p>Please keep the focus on the browser during the entire extraction process, or frames might be skipped.</p>
         <p class="output" id="videoDimensions"></p>
         <p class="output" id="extractionProgress"></p>
       </li>
       <li>
-        <p>Download the extracted frames zip archive: <input type="button" id="downloadFrames" value="Get frames zip archive" disabled="disabled" /></p>
-      </li>
-      <li>
-        <p>Optional: Load an existing <a href="http://web.mit.edu/vondrick/vatic/" target="new">vatic</a>-compatible XML annotation file: <input type="file" id="xmlFile" accept=".xml" disabled="true" /></p>
-        <p>This is useful for example if:</p>
-        <ul>
-          <li>You are resuming a previous annotation.</li>
-          <li>You already have a first version of your automatic object detector, which you want to improve by manually correcting its errors.</li>
-        </ul>
-        <p>Note: Launch your object detector on the extracted frames rather than on the original video to avoid frame/annotation mismatches!</p>
-      </li>
-      <li>
-        <p>Manually annotate the frame sequence:</p>
-        <p>To create a new bounding box, first click 'n' (for new), and then left click on two locations in the video corresponding to the corners of the box.</p>
-        <p>Tip: Use the spacebar to play/pause the video, and the left and right arrows to navigate frame by frame.</p>
-        <p>Tip: The visibility of each object can be toogled with its visiblity checkbox under the video.</p>
-        <p>Tip: Zoom in with your browser to place the bounding boxes more accurately.</p>
         <div id="doodle">
-          <canvas id="canvas"></canvas>
+          <canvas id="canvas" hidden="true"></canvas>
         </div>
-        <p><input type="button" id="play" value="Play" disabled="true" /><input type="button" id="pause" value="Pause" disabled="true" style="display: none;" /></p>
-        <div id="slider"></div>
-        <p><label for="speed">Speed multiplier: </label><input type="text" id="speed" value="1.00" size="4" /></p>
+        <div id="sliderBlock" hidden="true">
+        	<input type="button" id="play" value="►︎" style="float: left;" />
+        	<div id="slider"></div>
+        </div>
+        <p><label for="speed">Speed: </label><input type="text" id="speed" value="1.00" size="4" /></p>
         <div id="objects"></div>
+        <p>Press 'N' on your keyboard to create a new bounding box</p>
+        <p>With you mouse left-click on two locations in the video corresponding to the corners of the box.</p>
+        <p>Use the spacebar to play/pause the video, or the left and right arrows to navigate frame by frame.</p>
       </li>
       <li>
-        <p><input type="button" id="generateXml" value="Generate" disabled="true" /> the <a href="http://web.mit.edu/vondrick/vatic/" target="new">vatic</a>-compatible XML annotations file.</p>
+        <p><input type="button" id="generateXml" value="Generate" disabled="false" /> <a href="https://pjreddie.com/darknet/" style="color: #0077ff;">Darknet-YOLOv3</a> compatible annotations files.</p>
+      </li>
+      <li>
+        <p>Download the extracted frames zip archive: <input type="button" id="downloadFrames" value="Get frames zip archive" disabled="disabled" /></p>
       </li>
     </ul>
 
-  	<a href="https://github.com/yuval-s/vatic.js" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#00aadd; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  	<a href="https://github.com/yuval-s/vatic.js" class="github-corner" aria-label="View source on Github"><svg width="85" height="85" viewBox="0 0 250 250" style="fill:#00aadd; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
 
     <script type="text/javascript" src="dist/compatibility.js"></script>
     <script type="text/javascript" src="dist/jszip.js"></script>
@@ -203,6 +220,7 @@
     <script type="text/javascript" src="dist/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="dist/jquery-ui.js"></script>
     <script type="text/javascript" src="vatic.js"></script>
+    <script type="text/javascript" src="classes.txt"></script>
     <script type="text/javascript">
       "use strict";
 
@@ -219,34 +237,23 @@
         imageExtension: '.jpg',
 
         // Name of the extracted frames zip archive
-        framesZipFilename: 'extracted-frames.zip'
       };
-
-			var classes;
-      var xmlhttp = new XMLHttpRequest();
-			xmlhttp.onreadystatechange = function() {
-		  if (this.readyState == 4 && this.status == 200) {
-		 	 	classes = JSON.parse(this.responseText);
-		 	 }
-			};
-			xmlhttp.open("GET", "Classes.txt", true);
-			xmlhttp.send();
-				
+			
       let VideoName = document.getElementById('videoFile');
-	  
+      let zipName = document.getElementById('zipFile');
       let doodle = document.querySelector('#doodle');
       let canvas = document.querySelector('#canvas');
       let ctx = canvas.getContext('2d');
       let videoFile = document.querySelector('#videoFile');
       let zipFile = document.querySelector('#zipFile');
-      let xmlFile = document.querySelector('#xmlFile');
+//       let xmlFile = document.querySelector('#xmlFile');
       let videoDimensionsElement = document.querySelector('#videoDimensions');
       let extractionProgressElement = document.querySelector('#extractionProgress');
       let downloadFramesButton = document.querySelector('#downloadFrames');
       let playButton = document.querySelector('#play');
-      let pauseButton = document.querySelector('#pause');
       let speedInput = document.querySelector('#speed');
       let sliderElement = document.querySelector('#slider');
+      let sliderBlockElement = document.querySelector('#sliderBlock');
       let generateXmlButton = document.querySelector('#generateXml');
 
       let framesManager = new FramesManager();
@@ -282,9 +289,6 @@
           this.isReady = false;
 
           playButton.disabled = true;
-          playButton.style.display = 'block';
-          pauseButton.disabled = true;
-          pauseButton.style.display = 'none';
         },
 
         ready: function() {
@@ -299,6 +303,7 @@
           }
 
           this.pause();
+          playButton.value = "►";
 
           if (frameNumber >= 0 && frameNumber < framesManager.frames.totalFrames()) {
             this.drawFrame(frameNumber);
@@ -312,12 +317,6 @@
           }
 
           this.isPlaying = true;
-
-          playButton.disabled = true;
-          playButton.style.display = 'none';
-          pauseButton.disabled = false;
-          pauseButton.style.display = 'block';
-
           this.nextFrame();
         },
 
@@ -331,18 +330,17 @@
             clearTimeout(this.timeout);
             this.timeout = null;
           }
-
-          pauseButton.disabled = true;
-          pauseButton.style.display = 'none';
-          playButton.disabled = false;
-          playButton.style.display = 'block';
         },
 
         toogle: function() {
           if (!this.isPlaying) {
             this.play();
+            if(!playButton.disabled){
+            	playButton.value = "◼︎︎";
+            }
           } else {
             this.pause();
+            playButton.value = "►";
           }
         },
 
@@ -405,11 +403,7 @@
         done: function() {
           this.currentFrame = 0;
           this.isPlaying = false;
-
-          playButton.disabled = false;
-          playButton.style.display = 'block';
-          pauseButton.disabled = true;
-          pauseButton.style.display = 'none';
+          playButton.value = "►";
         }
       };
 
@@ -428,18 +422,19 @@
 
       videoFile.addEventListener('change', extractionFileUploaded, false);
       zipFile.addEventListener('change', extractionFileUploaded, false);
-      xmlFile.addEventListener('change', importXml, false);
+      // xmlFile.addEventListener('change', importXml, false);
       playButton.addEventListener('click', playClicked, false);
-      pauseButton.addEventListener('click', pauseClicked, false);
       downloadFramesButton.addEventListener('click', downloadFrames, false);
       generateXmlButton.addEventListener('click', generateXml, false);
 
       function playClicked() {
-        player.play();
-      }
-
-      function pauseClicked() {
-        player.pause();
+				if (!player.isPlaying) {
+          player.play();
+          playButton.value = "◼︎︎";
+        } else {
+        	player.pause();
+          playButton.value = "►";
+        }
       }
 
       function downloadFrames() {
@@ -449,11 +444,11 @@
         let totalFrames = framesManager.frames.totalFrames();
         for (let i = 0; i < totalFrames; i++) {
           framesManager.frames.getFrame(i).then((blob) => {
-            zip.file(i + '.jpg', blob);
+            zip.file(VideoName.files.item(0).name + '_' + i + '.jpg', blob);
 
             processed++;
             if (processed == totalFrames) {
-              let writeStream = streamSaver.createWriteStream('extracted-frames.zip').getWriter();
+              let writeStream = streamSaver.createWriteStream(VideoName.files.item(0).name + '_frames.zip').getWriter();
               zip.generateInternalStream({type: 'uint8array', streamFiles: true})
                  .on('data', data => writeStream.write(data))
                  .on('end', () => writeStream.close())
@@ -466,9 +461,12 @@
       function initializeCanvasDimensions(img) {
         doodle.style.width = img.width + 'px';
         doodle.style.height = img.height + 'px';
+        sliderBlockElement.hidden = false;
+        canvas.hidden = false;
         canvas.width = img.width;
         canvas.height = img.height;
-        sliderElement.style.width = img.width + 'px';
+        sliderElement.style.width = img.width-65 + 'px';
+        sliderBlockElement.style.width = img.width + 'px';
       }
 
       function extractionFileUploaded() {
@@ -478,7 +476,7 @@
 
         videoFile.disabled = true;
         zipFile.disabled = true;
-        xmlFile.disabled = true;
+        // xmlFile.disabled = true;
         downloadFramesButton.disabled = true;
         generateXmlButton.disabled = true;
         clearAllAnnotatedObjects();
@@ -500,11 +498,13 @@
                 }
                 ctx.drawImage(img, 0, 0);
 
-                videoDimensionsElement.innerHTML = 'Video dimensions determined: ' + img.width + 'x' + img.height;
-                extractionProgressElement.innerHTML = (percentage * 100).toFixed(2) + ' % completed. ' + framesSoFar + ' frames extracted.';
+                videoDimensionsElement.innerHTML = 'Video dimensions: ' + img.width + 'x' + img.height;
+                extractionProgressElement.innerHTML = (percentage * 100).toFixed(2) + '% completed. ' + framesSoFar + ' frames extracted.';
               });
             });
         } else {
+        	let str = zipName.files.item(0).name;
+      		config.framesZipFilename = str.substring(0, str.length - 11);
           promise = extractFramesFromZip(config, this.files[0]);
         }
 
@@ -525,8 +525,8 @@
                 );
                 player.ready();
 
-                xmlFile.disabled = false;
-                playButton.disabled = false;
+//                 xmlFile.disabled = false;
+//                 playButton.disabled = false;
                 downloadFramesButton.disabled = false;
                 generateXmlButton.disabled = false;
               });
@@ -650,9 +650,9 @@
       }
 
       function addAnnotatedObjectControls(annotatedObject) {
-				
 				let idLabel = $('<label>');
-        let id = $('<input type="text" value="0" style="margin-left:7px;"/>');
+        let id = $('<input type="text" value="0" style="margin-left:7px;" disabled />');
+        annotatedObject.id = 0;
         if (annotatedObject.id) {
           id.val(annotatedObject.id);
         }
@@ -664,7 +664,7 @@
 
 				let nameLabel = $('<label>');
         let name = $('<select style="margin-left:7px;"></select>')
-        for(let i = 0; i<5; i++){
+        for(let i = 0; i<classes.length; i++){
         	let option = $('<option></option>');
         	option.val(i);
         	option.append(classes[i]);
@@ -700,7 +700,7 @@
           annotatedObject.add(new AnnotatedFrame(player.currentFrame, bbox, true));
         });
         visibleLabel.append(visible);
-        visibleLabel.append('Is visible?');
+        visibleLabel.append('Visible');
 
         let hideLabel = $('<label>');
         let hide = $('<input type="checkbox" style="margin-right:7px;"/>');
@@ -769,10 +769,10 @@
             	xml += '\n';
             }
           }
-		  		zip.file(frameNumber + '.txt', xml);
+		  		zip.file(VideoName.files.item(0).name + '_' + frameNumber + '.txt', xml);
         	processed++;
     	  	if (processed == totalFrames){
-        		let writeStream = streamSaver.createWriteStream(VideoName.files.item(0).name + '.zip').getWriter();
+        		let writeStream = streamSaver.createWriteStream(VideoName.files.item(0).name + '_annotations.zip').getWriter();
           	zip.generateInternalStream({type: 'uint8array', streamFiles: true})
           		 .on('data', data => writeStream.write(data))
           		 .on('end', () => writeStream.close())

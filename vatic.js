@@ -133,7 +133,7 @@ function extractFramesFromZip(config, file) {
       .then((zip) => {
         let totalFrames = 0;
         for (let i = 0; ; i++) {
-          let file = zip.file(i + config.imageExtension);
+          let file = zip.file(config.framesZipFilename +'_' + i + config.imageExtension);
           if (file == null) {
             totalFrames = i;
             break;
@@ -144,7 +144,7 @@ function extractFramesFromZip(config, file) {
           totalFrames: () => { return totalFrames; },
           getFrame: (frameNumber) => {
             return new Promise((resolve, _) => {
-              let file = zip.file(frameNumber + config.imageExtension);
+              let file = zip.file(config.framesZipFilename +'_' + frameNumber + config.imageExtension);
               file
                 .async('arraybuffer')
                 .then((content) => {
