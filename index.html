@@ -3,38 +3,38 @@
 <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charseth=utf-8">
-    <link href='https://fonts.googleapis.com/css?family=Paytone One' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800|Montserrat+Alternates' rel='stylesheet'>
     <title>vatic.js - Video Annotation Tool</title>
     <style>
       body {
         margin: 0;
         padding: 0;
-        background-color: #f2f2f2;
-        font-family: 'Arial';
-        white-space: nowrap;
+        background-color: #F8F8F8;
+        font-family: 'Open Sans', sans-serif, 'Arial';
+        padding-bottom: 20px;
       }
 	    
-      .output { font-family: monospace; font-weight: bold; }
+/*       .output { font-family: monospace; font-weight: bold; } */
 
       #doodle {
         position: relative;
         width: 0px;
         height: 0px;
         z-index: 2;
+		  	margin: auto;
+/* 		  	margin-top: 10px; */
       }
 
       #canvas {
-      	margin-right: 20px;
         z-index: 1;
       }
 
       #titleBlock {
-        background-color: #2d2d2d;
+        background-color: #303840;
         height: 85px;
         padding-left: 20px;
-        color: #ffffff;
-        font-family: 'Paytone One';
-        width: 100%;
+        color: #A2A6A6;
+				font-family: 'Montserrat Alternates', sans-serif;
         white-space: nowrap;
       }
 	    
@@ -59,6 +59,18 @@
         position: absolute;
         z-index: 3;
       }
+      
+			#button {
+			  background-color: #2394F0;
+			  border: none;
+			  color: #ffffff;
+			  padding: 10px;
+			  text-align: center;
+			  display: inline-block;
+			  margin-top: 10px;
+			  margin-bottom: 10px;
+			  cursor: pointer;
+			}
 
       .handle, .ui-resizable-handle {
         width: 11px;
@@ -107,7 +119,8 @@
 				height: 20px;
         padding-top: 10px;
         padding-bottom: 5px;
-        margin-right: 3em;
+		  	margin: auto;
+		  	margin-bottom: 10px;
 			}
 			
 			#play {
@@ -123,7 +136,6 @@
 			
 			#speedLabel {
 				padding-left:15px;
-/* 				margin-top: -2px; */
 				color: #aaaaaa;
 				font-size: 15px;
 			}
@@ -138,14 +150,77 @@
   			outline: none;
 			}
 			
+			#progress {
+				background-color: #D9EAEF;
+        border-radius: 5px;
+				border: 1px solid #A5D5F0;
+				color: #005D91;
+				padding-left: 10px;
+				padding-right: 10px;
+		  	margin: auto;
+		  	margin-top: 20px;
+				width: 1000px;
+				height: 40px;
+			}
+			
+			#videoBlock {
+				background-color: #303840;
+        border-radius: 5px;
+				border: 1px solid #000000;
+				padding: 10px;
+		  	margin: auto;
+		  	margin-top: 20px;
+			}
+			
+			#block {
+				background-color: #E7E9E9;
+        border-radius: 5px;
+/* 				border: 1px solid #D3D4D4; */
+				color: #304060;
+				padding: 10px;
+		  	margin: auto;
+		  	margin-top: 20px;
+				width: 1000px;
+			}
+			
+			#save {
+				background-color: #E7E9E9;
+        border-radius: 5px;
+				color: #304060;
+				padding: 10px;
+		  	margin: auto;
+		  	margin-top: 20px;
+		  	width: 1000px;
+			}
+			
+			#annotation {
+				background-color: #eeeeee;
+				width: 145px;
+				display: inline-block;
+				margin: 15px;
+				padding: 10px;
+			}
+			
+			#code {
+				background-color: #F8F8F8;
+				font-family: 'Menlo';
+				font-size: 14px;
+				color: #005D91;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-top: 3px;
+				padding-bottom: 3px;
+        border-radius: 5px;
+			}
+			
       .ui-slider {
         position: relative;
 				background-color: #555555;
         text-align: left;
         height: 4px;
         margin-top: 6px;
-/*         margin-right: 10px; */
         margin-left: 120px;
+        border-radius: 5px;
       }
 
       .ui-slider-handle {
@@ -164,12 +239,10 @@
       }
 
       .ui-widget.ui-widget-content {
-/*         border: 1px solid #d3d3d3; */
       }
 
       .ui-state-default {
         border: 1px solid #aa0000;
-/*         background-color: #e6e6e6; */
       }
 
       .ui-state-hover, .ui-state-focus {
@@ -178,12 +251,9 @@
         height: 10px;
         top: -4px;
         border-radius: 6px;
-/*         background-color: #dadada; */
       }
 
       .ui-state-active {
-/*         border: 1px solid #aaaaaa; */
-/*         background-color: #ffffff; */
       }
 
       .ui-state-disabled {
@@ -191,52 +261,66 @@
       }
 
       .ui-corner-all {
-/*         border-radius: 5px; */
       }
     </style>
   </head>
   <body>
+    <a href="https://github.com/yuval-s/vatic.js" class="github-corner" aria-label="View source on Github"><svg width="85" height="85" viewBox="0 0 250 250" style="fill:#00aadd; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <div id="titleBlock">
-    	<p id="title" style="font-size: 2em; ">vatic.js - Video Annotation Tool</p>
-    	<p>Optical flow is used to track your annotations, so that you have to do as little work as possible ;-)</p>
+    	<p id="title"><a href="index.html" style="color: #ffffff; text-decoration: none; font-size: 30px;">vatic.js</a>
+    	<span style="margin-left: 60px; font-size: 30px;">Video Annotation Tool</span>
+			<a href="https://pjreddie.com/darknet/yolo/" target="_blank" style="color: #ffffff; text-decoration: none; font-size: 18px; margin-left: 5px;"><i>for YOLO!</i></a>
+    	</p>
+    	<p style="margin-top: 5px;">Optical flow is used to track your annotations, so that you have to do as little work as possible ;-)</p>
 		</div>
-    <ul>
-      <li>
-        <p>Start a new video annotation <input type="file" id="videoFile" accept=".mp4,.x-m4v,video/*"/></p>
-        <p>Resume a previous annotation <input type="file" id="zipFile" accept=".zip" /></p>
-        <p>Please keep the focus on the browser during the entire extraction process, or frames might be skipped.</p>
-        <div class="output" id="videoDimensions" style="float: left; padding-top: 10px;"></div>
-        <div class="output" id="extractionProgress" style="float: left; padding-top: 10px; padding-left: 8px;"></div>
-        <div style="height:20px;"></div>
-      </li>
-      <li>
-        <div id="doodle">
-          <canvas id="canvas" hidden="true"></canvas>
-        </div>
-        <div id="sliderBlock" hidden="true">
-        	<input type="button" id="play" value="►︎" style="float: left;" />
-        	<label id="speedLabel" style="float: left;" >X</label>
-        	<input type="text" id="speed" value="1.00" size="4" style="float: left;" />
-        	<div id="slider"></div>
-        </div>
-        <div id="objects"></div>
-        <div id="help" hidden="true" style="padding-top: 10px;">
-        	<p>Press 'N' on your keyboard to create a new bounding box.</p>
-        	<p>You can also press either one of the numbers keys to auto-select the correct class/ID.</p>
-        	<p>Left-click with you mouse on two locations in the video corresponding to the corners of the box.</p>
-        	<p>Use the spacebar to play/pause the video, or the left and right arrows to navigate frame by frame.</p>
-        	<p>Classes are determined from the file <i>"classes.txt"</i>, but you can ignore the names and use your own ID values.</p>
-        </div
-      </li>
-      <li>
-      	<div id="generate" hidden="true" style="padding-bottom: 20px;">
-	        <p><input type="button" id="generateXml" value="Generate" disabled="false" /> <a href="https://pjreddie.com/darknet/" style="color: #0077ff;">Darknet-YOLOv3</a> compatible annotations files</p>
-  	      <p><input type="button" id="downloadFrames" value="Download" disabled="disabled" /> the extracted frames zip archive</p>
-  	    </div>
-      </li>
-    </ul>
+		
+   	<div id="videoBlock" hidden="true">
+    	<div id="doodle">
+      	<canvas id="canvas"></canvas>
+      </div>
+      <div id="sliderBlock">
+      	<input type="button" id="play" value="►︎" style="float: left;" />
+       	<label id="speedLabel" style="float: left;" >X</label>
+       	<input type="text" id="speed" value="1.00" size="4" style="float: left;" />
+       	<div id="slider"></div>
+      </div>
+    	<div id="objects" style="margin-left:10px; margin-right:10px;"></div>
 
-  	<a href="https://github.com/yuval-s/vatic.js" class="github-corner" aria-label="View source on Github"><svg width="85" height="85" viewBox="0 0 250 250" style="fill:#00aadd; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    </div>
+    <div id="save" hidden="true">
+   		<p style="font-size: 20px; font-weight: bold; margin-bottom: 8px;">Save</p>
+   		<p>After you finished annotating you can generate a <a href="https://pjreddie.com/darknet/" style="color: #0060C0;" target="_blank">YOLO</a> compatible annotations files.</p>
+   		<p>Be sure to play the whole video from start to end to ensure no frame drops.</p>
+   		<p>You can also download the extracted frames as <span id="code">.jpg</span></p>
+	    <label id="button" style="margin-right: 20px; float: left;"><input type="button" id="generateXml" value="Generate" disabled="false" style="display: none"/>Generate annotations</label>
+  	  <label id="button"><input type="button" id="downloadFrames" value="Download" disabled="disabled"  style="display: none;"/>Download frames</label>
+  	</div>
+  	  
+		<div id="progress" hidden="true">
+      <span class="output" id="extractionProgress" style=" padding-top: 10px; padding-left: 8px; float: left;"></span>
+     	<span class="output" id="videoDimensions" style="padding-top: 10px; float: right;"></span>
+   	</div>
+   	
+   	<div id="block">
+   		<p style="font-size: 20px; font-weight: bold; margin-bottom: 8px;">Upload</p>
+   		<p>You can either upload a video file or a zip archive of frame images.</p>
+   		<p>If you're using zip archive, please make sure the names of the frames are as follows:
+   		<span id="code">&ltzip name&gt_&ltframe number&gt.jpg</span></p>
+      <label id="button" style="float: left; margin-right: 20px;"><input type="file" id="videoFile" accept=".mp4,.x-m4v,video/*" style="display: none;">Video file</label>
+      <label id="button"><input type="file" id="zipFile" accept=".zip" style="display: none;">zip archive</label>
+      <span style="margin-left: 20px;" id="upNew" hidden="true"><i>* Refresh the page after you finished, and before uploading a new file!</i></span>
+      <br />Please keep the focus on the browser during the entire extraction process, or frames might be skipped.
+    </div>
+    
+   	<div id="block">
+   	 	<p style="font-size: 20px; font-weight: bold; margin-bottom: 8px;">Annotate</p>
+    	<p>Press <span id="code">N</span> on your keyboard to create a new bounding box.</p>
+			<p>You can also press either one of the number keys: <span id="code">0, 1, 2 ...</span> to auto-select the correct Class/ID.</p>
+			<p><span id="code">Left-click</span> with you mouse on two locations in the video corresponding to the corners of the box.</p>
+			<p>Use the <span id="code">spacebar</span> to play/pause the video, or the <span id="code">left</span> and <span id="code">right</span> arrows to navigate frame by frame.</p>
+			<p>Classes are determined from the file <i>"classes.txt"</i>, but you can ignore the names and use your own ID values.</p>
+		</div>
+    
 
     <script type="text/javascript" src="dist/compatibility.js"></script>
     <script type="text/javascript" src="dist/jszip.js"></script>
@@ -263,11 +347,11 @@
         // Format of the extracted frames
         imageMimeType: 'image/jpeg',
         imageExtension: '.jpg',
-
-        // Name of the extracted frames zip archive
       };
+      
 			let canvasMouseOver = false;
-      let VideoName = document.getElementById('videoFile');
+      let Video = document.getElementById('videoFile');
+      let videoName;
       let zipName = document.getElementById('zipFile');
       let doodle = document.querySelector('#doodle');
       let canvas = document.querySelector('#canvas');
@@ -275,6 +359,10 @@
       let videoFile = document.querySelector('#videoFile');
       let zipFile = document.querySelector('#zipFile');
 //       let xmlFile = document.querySelector('#xmlFile');
+      let saveElement = document.querySelector('#save');
+      let progressElement = document.querySelector('#progress');
+      let videoBlockElement = document.querySelector('#videoBlock');
+      let objectsElement = document.querySelector('#objects');
       let videoDimensionsElement = document.querySelector('#videoDimensions');
       let extractionProgressElement = document.querySelector('#extractionProgress');
       let downloadFramesButton = document.querySelector('#downloadFrames');
@@ -482,11 +570,11 @@
         let totalFrames = framesManager.frames.totalFrames();
         for (let i = 0; i < totalFrames; i++) {
           framesManager.frames.getFrame(i).then((blob) => {
-            zip.file(VideoName.files.item(0).name + '_' + i + '.jpg', blob);
+            zip.file(videoName + '_' + i + '.jpg', blob);
 
             processed++;
             if (processed == totalFrames) {
-              let writeStream = streamSaver.createWriteStream(VideoName.files.item(0).name + '_frames.zip').getWriter();
+              let writeStream = streamSaver.createWriteStream(videoName + '_frames.zip').getWriter();
               zip.generateInternalStream({type: 'uint8array', streamFiles: true})
                  .on('data', data => writeStream.write(data))
                  .on('end', () => writeStream.close())
@@ -499,10 +587,10 @@
       function initializeCanvasDimensions(img) {
         doodle.style.width = img.width + 'px';
         doodle.style.height = img.height + 'px';
-        sliderBlockElement.hidden = false;
-        document.getElementById('help').hidden = false;
-        document.getElementById('generate').hidden = false;
-        canvas.hidden = false;
+//         document.getElementById('videoBlock').hidden = false;
+//         videoBlockElement.hidden = false;
+        videoBlockElement.style.width = (1000>img.width ? 1000 + 'px' : img.width + 'px');
+//         canvas.hidden = false;
         canvas.width = img.width;
         canvas.height = img.height;
         sliderElement.style.width = img.width-135 + 'px';
@@ -513,7 +601,9 @@
         if (this.files.length != 1) {
           return;
         }
-
+				
+				videoBlockElement.hidden = true;
+				saveElement.hidden = true;
         videoFile.disabled = true;
         zipFile.disabled = true;
         // xmlFile.disabled = true;
@@ -524,7 +614,9 @@
         player.initialize();
 
         let promise;
+        progressElement.hidden = false;
         if (this == videoFile) {
+        	videoName = Video.files.item(0).name;
           let dimensionsInitialized = false;
 
           promise = extractFramesFromVideo(
@@ -539,23 +631,27 @@
                 ctx.drawImage(img, 0, 0);
 
                 videoDimensionsElement.innerHTML = 'Video dimensions: ' + img.width + 'x' + img.height;
-                extractionProgressElement.innerHTML = ' - ' + (percentage * 100).toFixed(2) + '% completed. ' + framesSoFar + ' frames extracted.';
+                extractionProgressElement.innerHTML = 'Processing: <b>' + videoName + '</b> - ' + (percentage * 100).toFixed(2) + '% completed, ' + framesSoFar + ' frames extracted';
               });
             });
         } else {
-        	let str = zipName.files.item(0).name;
-      		config.framesZipFilename = str.substring(0, str.length - 11);
+        	videoName = zipName.files.item(0).name;
+      		config.framesZipFilename = videoName.substring(0, videoName.length - 11);
           promise = extractFramesFromZip(config, this.files[0]);
         }
 
         promise.then((frames) => {
-          extractionProgressElement.innerHTML = ' - Extraction completed. ' + frames.totalFrames() + ' frames captured.';
+        	if(this == videoFile){
+          	extractionProgressElement.innerHTML = 'Processing: <b>' + videoName + '</b> - Extraction completed, ' + frames.totalFrames() + ' frames captured';
+          } else{
+          	extractionProgressElement.innerHTML = 'Processing: <b>' + videoName + '</b> - Extraction completed, ' + frames.totalFrames() + ' frames captured';
+          }
           if (frames.totalFrames() > 0) {
             frames.getFrame(0).then((blob) => {
               blobToImage(blob).then((img) => {
                 initializeCanvasDimensions(img);
                 ctx.drawImage(img, 0, 0);
-                videoDimensionsElement.innerHTML = 'Video dimensions determined: ' + img.width + 'x' + img.height;
+                videoDimensionsElement.innerHTML = 'Video dimensions: ' + img.width + 'x' + img.height;
 
                 framesManager.set(frames);
                 slider.init(
@@ -567,6 +663,9 @@
 
 //                 xmlFile.disabled = false;
 //                 playButton.disabled = false;
+				        videoBlockElement.hidden = false;
+				        saveElement.hidden = false;
+								document.getElementById('upNew').hidden = false;
                 downloadFramesButton.disabled = false;
                 generateXmlButton.disabled = false;
               });
@@ -690,8 +789,8 @@
       }
 
       function addAnnotatedObjectControls(annotatedObject) {
-				let idLabel = $('<label>');
-        let id = $('<input type="text" value="0" size="3" style="margin-left:7px;" />');
+      	let divID = $('<div style="margin-bottom: 5px;">');
+        let id = $('<input type="text" value="0" size="3" style="height: 20px; text-align: center;" />');
         annotatedObject.id = doodle.key;
         if (annotatedObject.id) {
           id.val(annotatedObject.id);
@@ -699,11 +798,10 @@
         id.on('change keyup paste mouseup', function() {
           annotatedObject.id = this.value;
         });
-        idLabel.append('ID');
-        idLabel.append(id);
-
-				let nameLabel = $('<label>');
-        let name = $('<select style="margin-left:7px;"></select>')
+				divID.append(id);
+				
+				let divClass = $('<div style="margin-bottom: 5px; margin-right: 5px; float: left;">');
+        let classLabel = $('<select style="height: 26px; width: 100px; font-size: 14px; background-color: #ffffff;"></select>')
         for(let i = 0; i<classes.length; i++){
         	let option;
         	if(i == doodle.key){
@@ -713,21 +811,21 @@
         	}
         	option.val(i);
         	option.append(classes[i]);
-        	name.append(option);
+        	classLabel.append(option);
         }
         if (annotatedObject.name) {
-          name.val(annotatedObject.name);
+          classLabel.val(annotatedObject.name);
         }
-        name.change(function() {
+        classLabel.change(function() {
           id.val(this.value);
           annotatedObject.id = this.value;
         });
-        name.on('change keyup paste mouseup', function() {
+        classLabel.on('change keyup paste mouseup', function() {
           annotatedObject.name = this.value;
         });
-				nameLabel.append('Class');
-				nameLabel.append(name);
+				divClass.append(classLabel);
 				
+				let divVisible = $('<div style="margin-bottom: 5px;">');
         let visibleLabel = $('<label>');
         let visible = $('<input type="checkbox" checked="checked" style="margin-right:7px;"/>');
         annotatedObject.visible = visible;
@@ -746,7 +844,9 @@
         });
         visibleLabel.append(visible);
         visibleLabel.append('Visible');
+        divVisible.append(visibleLabel);
 
+				let divHide = $('<div style="margin-bottom: 5px;">');
         let hideLabel = $('<label>');
         let hide = $('<input type="checkbox" style="margin-right:7px;"/>');
         hide.change(function() {
@@ -754,7 +854,9 @@
         });
         hideLabel.append(hide);
         hideLabel.append('Hide others?');
-
+				divHide.append(hideLabel);
+				
+				let divDel = $('<div style="margin-bottom: 5px;">');
         let del = $('<input type="button" value="Delete" />');
         del.click(function() {
           for (let i = 0; annotatedObjectsTracker.annotatedObjects.length; i++) {
@@ -764,22 +866,14 @@
             }
           }
         });
-
-        let div = $('<div></div>');
-        div.css({
-          'border': '1px solid black',
-          'display': 'inline-block',
-          'margin': '5px',
-          'padding': '10px'});
-        div.append(nameLabel);
-        div.append($('<p />'));
-        div.append(idLabel);
-        div.append($('<p />'));
-        div.append(visibleLabel);
-        div.append($('<p />'));
-        div.append(hideLabel);
-        div.append($('<p />'));
-        div.append(del);
+				divDel.append(del);
+				
+        let div = $('<div id="annotation"></div>');
+        div.append(divClass);
+        div.append(divID);
+        div.append(divVisible);
+        div.append(divHide);
+        div.append(divDel);
 
         annotatedObject.controls = div;
 
@@ -814,10 +908,10 @@
             }
           }
           
-		  		zip.file(VideoName.files.item(0).name + '_' + frameNumber + '.txt', xml);
+		  		zip.file(videoName + '_' + frameNumber + '.txt', xml);
         	processed++;
     	  	if (processed == totalFrames){
-        		let writeStream = streamSaver.createWriteStream(VideoName.files.item(0).name + '_annotations.zip').getWriter();
+        		let writeStream = streamSaver.createWriteStream(videoName + '_annotations.zip').getWriter();
           	zip.generateInternalStream({type: 'uint8array', streamFiles: true})
           		 .on('data', data => writeStream.write(data))
           		 .on('end', () => writeStream.close())
