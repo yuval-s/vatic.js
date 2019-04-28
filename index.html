@@ -197,7 +197,7 @@
 				background-color: #F8F8F8; /* #eeeeee; */
         border-radius: 5px;
         border: 1px solid #DDDDDD;
-				width: 145px;
+				width: 140px;
 				display: inline-block;
 				margin: 15px;
 				padding: 10px;
@@ -618,7 +618,8 @@
         let promise;
         progressElement.hidden = false;
         if (this == videoFile) {
-        	videoName = Video.files.item(0).name;
+	        let tmp = Video.files.item(0).name;
+        	videoName = tmp.substring(0, tmp.lastIndexOf("."));
           let dimensionsInitialized = false;
 
           promise = extractFramesFromVideo(
@@ -637,10 +638,11 @@
               });
             });
         } else {
-        	videoName = zipName.files.item(0).name;
+	        let tmp = zipName.files.item(0).name;
+        	videoName = tmp.substring(0, tmp.lastIndexOf("."));
 //       		config.framesZipFilename = videoName.substring(0, videoName.length - 11);
-					config.framesZipFilename = videoName.substring(0, videoName.length - 4);
-//       		alert(config.framesZipFilename);
+// 					config.framesZipFilename = videoName.substring(0, videoName.length - 4);
+					config.framesZipFilename = videoName;
           promise = extractFramesFromZip(config, this.files[0]);
         }
 
