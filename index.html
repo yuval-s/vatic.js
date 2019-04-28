@@ -164,9 +164,9 @@
 			}
 			
 			#videoBlock {
-				background-color: #303840;
+				background-color: #E7E9E9; /* #303840; */
         border-radius: 5px;
-				border: 1px solid #000000;
+/* 				border: 1px solid #000000; */
 				padding: 10px;
 		  	margin: auto;
 		  	margin-top: 20px;
@@ -194,7 +194,9 @@
 			}
 			
 			#annotation {
-				background-color: #eeeeee;
+				background-color: #F8F8F8; /* #eeeeee; */
+        border-radius: 5px;
+        border: 1px solid #DDDDDD;
 				width: 145px;
 				display: inline-block;
 				margin: 15px;
@@ -853,11 +855,12 @@
           annotatedObject.hideOthers = this.checked;
         });
         hideLabel.append(hide);
-        hideLabel.append('Hide others?');
+        hideLabel.append('Hide others');
 				divHide.append(hideLabel);
 				
-				let divDel = $('<div style="margin-bottom: 5px;">');
-        let del = $('<input type="button" value="Delete" />');
+				let divDel = $('<div>');
+				let delLabel = $('<label id="button" style="background-color: #E7003B;">');
+        let del = $('<input type="button" value="Delete" style="display: none;"/>');
         del.click(function() {
           for (let i = 0; annotatedObjectsTracker.annotatedObjects.length; i++) {
             if (annotatedObject === annotatedObjectsTracker.annotatedObjects[i]) {
@@ -866,7 +869,9 @@
             }
           }
         });
-				divDel.append(del);
+        delLabel.append(del)
+        delLabel.append('Delete');
+				divDel.append(delLabel);
 				
         let div = $('<div id="annotation"></div>');
         div.append(divClass);
