@@ -3,7 +3,7 @@
 **Create bounding boxes for a selected video file**
 <h4>https://yuval-s.github.io/vatic.js</h4>
 
-Generate a \<video-name\>.zip, for each frame there's a \<video-name\>_\<frame-number\>.txt file including its annotations.
+Generate a *\<video-name\>.zip*, for each frame there's a *\<video-name\>_\<frame-number\>.txt* file including its annotations.
 <br>
 The annotations follows the below structure:
 
@@ -11,7 +11,7 @@ The annotations follows the below structure:
 | ----- | -------- | -------- | ---------- | ----------- |
 * *Note that the above dimensions are normalized (automatically) by the frame dimensions.*
 
-This file structure and annotations follow the [Darknet-YOLOv3 CNN](https://pjreddie.com/darknet/) labels structure.
+This file structure and annotations follows [YOLOv3 CNN](https://pjreddie.com/darknet/) labels structure.
 
 <br><br>
 AVI files are not supported.
