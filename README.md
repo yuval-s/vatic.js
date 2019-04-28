@@ -3,7 +3,7 @@
 **Create bounding boxes for a selected video file**
 <h4>https://yuval-s.github.io/vatic.js</h4>
 
-Generate a *video-name*.zip, for each frame there's a *frame-number*.txt file including its annotations.
+Generate a <video-name>.zip, for each frame there's a <video-name>_<frame-number>.txt file including its annotations.
 <br>
 The annotations follows the below structure:
 
@@ -14,7 +14,8 @@ The annotations follows the below structure:
 This file structure and annotations follow the [Darknet-YOLOv3 CNN](https://pjreddie.com/darknet/) labels structure.
 
 <br><br>
-
+AVI files are not supported.
+<br>
 Not working in Safari & IE/Edge, StreamSaver missing support: https://github.com/jimmywarting/StreamSaver.js
 
 ---

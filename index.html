@@ -603,7 +603,14 @@
         if (this.files.length != 1) {
           return;
         }
-				
+				if (this == videoFile) {
+	        let tmp = Video.files.item(0).name;
+	        if(tmp.substring(tmp.lastIndexOf(".")+1) == "avi" || tmp.substring(tmp.lastIndexOf(".")+1) == "AVI"){
+						progressElement.hidden = false;
+	        	extractionProgressElement.innerHTML = 'No support for <span id="code">AVI</span> files, please try another video.';
+						return;
+	        }
+	      }
 				videoBlockElement.hidden = true;
 				saveElement.hidden = true;
         videoFile.disabled = true;
@@ -639,7 +646,11 @@
             });
         } else {
 	        let tmp = zipName.files.item(0).name;
-        	videoName = tmp.substring(0, tmp.lastIndexOf("."));
+	        if(tmp.substring(0, tmp.lastIndexOf("_frames")).length > 0){
+	        	videoName = tmp.substring(0, tmp.lastIndexOf("_frames"));
+	        } else{
+	        	videoName = tmp.substring(0, tmp.lastIndexOf("."));
+	        }
 //       		config.framesZipFilename = videoName.substring(0, videoName.length - 11);
 // 					config.framesZipFilename = videoName.substring(0, videoName.length - 4);
 					config.framesZipFilename = videoName;
