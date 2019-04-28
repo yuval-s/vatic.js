@@ -3,7 +3,7 @@
 **Create bounding boxes for a selected video file**
 <h4>https://yuval-s.github.io/vatic.js</h4>
 
-Generate a <video-name>.zip, for each frame there's a <video-name>_<frame-number>.txt file including its annotations.
+Generate a &ltvideo-name&gt.zip, for each frame there's a &ltvideo-name&gt_&ltframe-number&gt.txt file including its annotations.
 <br>
 The annotations follows the below structure:
 
