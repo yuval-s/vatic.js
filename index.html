@@ -638,7 +638,9 @@
             });
         } else {
         	videoName = zipName.files.item(0).name;
-      		config.framesZipFilename = videoName.substring(0, videoName.length - 11);
+//       		config.framesZipFilename = videoName.substring(0, videoName.length - 11);
+					config.framesZipFilename = videoName.substring(0, videoName.length - 4);
+      		alert(config.framesZipFilename);
           promise = extractFramesFromZip(config, this.files[0]);
         }
 
