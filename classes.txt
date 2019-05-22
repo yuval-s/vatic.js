@@ -1,1 +1,1 @@
-let classes = ["Boat", "Jet Ski", "Buoy", "Person", "Sea Animal"];
+let classes = ["Boat", "Jet Ski", "Buoy", "Person", "Surf"];
